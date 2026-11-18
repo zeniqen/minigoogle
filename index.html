@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiniGoogle: Keyword Search vs PageRank</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- GSAP Animation Library with fallback -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="header">
+      <div class="logo" id="logo">
+        <span class="g-blue">M</span><span class="g-red">i</span><span class="g-yellow">n</span><span class="g-blue">i</span><span class="g-green">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+      </div>
+      <p class="tagline">1998 Information Retrieval Experiment: <strong>Keyword Matching</strong> vs <strong>PageRank</strong></p>
+
+      <!-- Search Bar -->
+      <div class="search-box-wrapper">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Try searching 'pizza', 'pune', or 'biryani'..." 
+            value="pizza"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button id="clear-btn" class="clear-btn" title="Clear search">&times;</button>
+          <button id="search-btn" class="search-btn">Search</button>
+        </div>
+      </div>
+
+      <!-- Quick Try Pills -->
+      <div class="pills-container">
+        <span class="pills-label">Quick test:</span>
+        <button class="pill active" data-query="pizza">pizza (Best Demo)</button>
+        <button class="pill" data-query="pune">pune</button>
+        <button class="pill" data-query="biryani">biryani</button>
+        <button class="pill" data-query="canteen">canteen</button>
+        <button class="pill" data-query="misal">misal</button>
+        <button class="pill" data-query="sauce">sauce</button>
+        <button id="toggle-graph-btn" class="pill pill-toggle">🕸️ Toggle Link Graph</button>
+      </div>
+    </header>
+
+    <!-- Graph Visualization Section (Collapsible) -->
+    <section id="graph-panel" class="graph-panel">
+      <div class="graph-card">
+        <div class="graph-header">
+          <h3>Web Graph &amp; Inbound Citations (6 Pages)</h3>
+          <span class="graph-note">Notice how 4 separate pages (1, 3, 4, 5) point to Page 2, while Page 6 has 0 inbound links.</span>
+        </div>
+        <div class="graph-grid" id="graph-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Results Comparison Grid -->
+    <main class="results-grid">
+      
+      <!-- LEFT: The Old Way (Keyword Matching) -->
+      <section class="results-column old-way-column">
+        <div class="column-header">
+          <div class="column-badge old-badge">PRE-1998 SEARCH ENGINE</div>
+          <h2>The "Old Way": Keyword Frequency</h2>
+          <p class="algo-formula">Formula: <code>Score = Term Frequency (TF) in page</code></p>
+          <div class="insight-box warning-box">
+            <strong>Vulnerability: Keyword Stuffing</strong>
+            <p id="old-insight-text">A spammer repeating the keyword 10 times easily hijacks position #1, regardless of quality or legitimacy.</p>
+          </div>
+        </div>
+
+        <div class="results-meta">
+          <span id="old-result-count">Showing results</span>
+          <span class="sort-tag">Sorted by: Keyword Count (High to Low)</span>
+        </div>
+
+        <div id="old-results-list" class="results-list">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- RIGHT: The New Way (Google PageRank) -->
+      <section class="results-column new-way-column">
+        <div class="column-header">
+          <div class="column-badge new-badge">GOOGLE INNOVATION (1998)</div>
+          <h2>The "New Way": PageRank Algorithm</h2>
+          <p class="algo-formula">Formula: <code>PR(A) = (1-d)/N + d &sum;(PR(T)/C(T))</code> (d = 0.85)</p>
+          <div class="insight-box success-box">
+            <strong>Defense: Democratic Link Authority</strong>
+            <p id="new-insight-text">PageRank ignores repetition and ranks pages by authoritative incoming votes from other reputable pages.</p>
+          </div>
+        </div>
+
+        <div class="results-meta">
+          <span id="new-result-count">Showing results</span>
+          <span class="sort-tag">Sorted by: PageRank Score (High to Low)</span>
+        </div>
+
+        <div id="new-results-list" class="results-list">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer Summary / Educational Callout -->
+    <footer class="footer">
+      <div class="footer-card">
+        <h3>Why did PageRank change the internet?</h3>
+        <div class="footer-facts">
+          <div class="fact-item">
+            <span class="fact-num">1</span>
+            <div><strong>Hyperlinks as democratic votes:</strong> A link from an authoritative food guide is a verified peer review.</div>
+          </div>
+          <div class="fact-item">
+            <span class="fact-num">2</span>
+            <div><strong>Spam neutralized:</strong> Page 6 stuffed "pizza" 10 times, but with zero inbound links, its PageRank is trapped at the bare mathematical minimum (0.025).</div>
+          </div>
+          <div class="fact-item">
+            <span class="fact-num">3</span>
+            <div><strong>Quality elevated:</strong> Page 2 (the actual pizza restaurant) ranks #1 because 4 independent sites link to it, yielding 39.3% of the total authority.</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
